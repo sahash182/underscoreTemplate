@@ -1,4 +1,8 @@
-$(function() {
+function Todos(name, desc) {
+    this.name = name;
+    this.desc = desc;
+    this.toDos = [];
+  }
 
   // form to create new todo
   var $newToDo = $('#new-todo');
@@ -7,27 +11,47 @@ $(function() {
   var $toDoList = $('#todo-list');
 
   // todo template
-  var toDoTemplate = _.template($('#todo-template').html());
-
+  //var toDoTemplate = _.template($('#todo-template').html());
   // `toDos` array is our model (holds our data)
   // contains test (or "seed") data
-  var toDos = [
-    {name: "laundry", desc: "clean clothes"},
-    {name: "grocery shopping", desc: "buy food"},
-    {name: "nap time", desc: "remember to sleep!"}
-  ];
+  //var toDos = [
+   // {name: "laundry", desc: "clean clothes"},
+    //{name: "grocery shopping", desc: "buy food"},
+    //{name: "nap time", desc: "remember to sleep!"}
+  //];
+  // adds newtodos to the array all..
+Todos.prototype.save = function(newToDo){
+  this.all.push(newToDo);
+    // submit form to create new todo
+  this.on('submit', function(event) {
+    event.preventDefault()});
+Todos.prototype.render = function(){
+  var toDoTemplate = _.template($('#todo-template').html());
+  var $todo = $(toDoTemplate(todo));
+    $todo.attr('data-index', index);
+    $toDoList.append($todo);
+  };
+//ToDos.prototype.render = function () {
+ // var toDoTemplate = _.template($('#todo-template').html());
+  // append existing todos (from seed data) to `$toDoList`
+  // `_.each` is an "iterator" function provided by Underscore.js
+  //_.each(ToDo.all, function (todo, index) {
+    //var $todo = $(toDoTemplate(todo));
+    //$todo.attr('data-index', index);
+    //$toDoList.append($todo);
+ // });
+//}
+  
 
   // append existing todos (from seed data) to `$toDoList`
   // `_.each` is an "iterator" function provided by Underscore.js
-  _.each(toDos, function (todo, index) {
-    var $todo = $(toDoTemplate(todo));
-    $todo.attr('data-index', index);
-    $toDoList.append($todo);
-  });
+ // _.each(toDos, function (todo, index) {
+   // var $todo = $(toDoTemplate(todo));
+    //$todo.attr('data-index', index);
+    //$toDoList.append($todo);
+  //});
 
-  // submit form to create new todo
-  $newToDo.on('submit', function(event) {
-    event.preventDefault();
+
 
     // create new todo object from form data
     var toDoName = $('#todo-name').val();
@@ -72,5 +96,3 @@ $(function() {
       $(this).attr('data-index', index);
     });
   });
-
-});
